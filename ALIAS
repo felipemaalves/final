@@ -6,7 +6,9 @@ alias gd='git diff'
 alias go='git checkout '
 alias gk='gitk --all&'
 alias gx='gitx --all'
-alias gh='git log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short'
+alias gh='git log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short'
+
+alias rs='python manage.py runserver 0.0.0.0:8001'
 
 alias got='git '
 alias get='git '
