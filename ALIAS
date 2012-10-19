@@ -7,6 +7,7 @@ alias go='git checkout '
 alias gk='gitk --all&'
 alias gx='gitx --all'
 alias gh='git log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short'
+alias gm='git merge'
 
 alias rs='python manage.py runserver 0.0.0.0:8001'
 
