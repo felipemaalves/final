@@ -1,17 +1,17 @@
-Ext.define('AM.store.Users', {
+Ext.define('AM.store.Specs', {
     extend: 'Ext.data.Store',
-    model: 'AM.model.User',
+    model: 'AM.model.Spec',
     autoLoad: true,
     
     proxy: {
         type: 'ajax',
 	api: {
-	    read: 'data/users.json',
-	    update:'data/updateUsers.json'
+	    read: 'data/specs.json',
+	    update:'data/updateSpecs.json'
 	},
         reader: {
             type: 'json',
-            root: 'users',
+            root: 'specs',
             successProperty: 'success'
         }
     }

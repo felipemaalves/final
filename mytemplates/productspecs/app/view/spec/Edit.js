@@ -1,8 +1,8 @@
-Ext.define('AM.view.user.Edit', {
+Ext.define('AM.view.spec.Edit', {
     extend: 'Ext.window.Window',
-    alias: 'widget.useredit',
+    alias: 'widget.specedit',
 
-    title: 'Edit User',
+    title: 'Edit Spec',
     layout: 'fit',
     autoShow: true,
 
@@ -16,11 +16,11 @@ Ext.define('AM.view.user.Edit', {
                         name : 'name',
                         fieldLabel: 'Name'
                     },
-                    {
+/*                   {
                         xtype: 'textfield',
                         name : 'email',
                         fieldLabel: 'Email'
-                    }
+                    }*/
                 ]
             }
         ];

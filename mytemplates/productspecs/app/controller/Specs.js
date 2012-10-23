@@ -1,30 +1,30 @@
-Ext.define('AM.controller.Users', {
+Ext.define('AM.controller.Specs', {
     extend: 'Ext.app.Controller',
 
     stores: [
-	'Users'
+	'Specs'
     ],
     models: [
-        'User'
+        'Spec'
     ],
 
     views: [
-        'user.List',
-	'user.Edit'
+        'spec.List',
+	'spec.Edit'
     ],
 
     init: function() {
         this.control({
-            'viewport > userlist': {
-                itemdblclick: this.editUser
+            'viewport > speclist': {
+                itemdblclick: this.editSpec
             },
-	    'useredit button[action=save]': {
-		click: this.updateUser
+	    'specedit button[action=save]': {
+		click: this.updateSpec
 	    }
         });
     },
 
-    updateUser: function(button) {
+    updateSpec: function(button) {
 	var win      = button.up('window'),
             form     = win.down('form'),
             record   = form.getRecord(),
@@ -32,11 +32,11 @@ Ext.define('AM.controller.Users', {
         
         record.set(values);
         win.close();
-	this.getUsersStore().sync();
+	this.getSpecsStore().sync();
     },
 
-    editUser: function(grid, record) {
-	var view = Ext.widget('useredit');
+    editSpec: function(grid, record) {
+	var view = Ext.widget('specedit');
 	view.down('form').loadRecord(record);
     }
 });

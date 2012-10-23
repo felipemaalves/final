@@ -4,7 +4,7 @@ Ext.application({
 
     appFolder: 'app',
     controllers:[
-        'Users'
+        'Specs'
     ],
     launch: function() {
         Ext.create('Ext.container.Viewport', {
