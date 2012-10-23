@@ -103,6 +103,7 @@ ROOT_URLCONF = 'sitedj.urls'
 WSGI_APPLICATION = 'sitedj.wsgi.application'
 
 TEMPLATE_DIRS = (
+    '/home/falves/final/mytemplates', 
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
