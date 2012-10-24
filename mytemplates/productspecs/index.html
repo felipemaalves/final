@@ -1,4 +1,4 @@
-<html>
+<!--<html>
 	<head>
 		<title>Product Specs</title>
 
@@ -8,4 +8,15 @@
 	</head>
 	<body>
 	</body>
-</html>
+</html>-->
+
+{% if latest_productspec_list %}
+        <ul>
+        {% for productspec in latest_productspec_list %}
+                <li><a href="/productspecs/{{ productspec.id }}/">{{ productspec.name }}</a></li>
+        {% endfor %}
+        </ul>
+{% else %}
+        <p>No polls are available.</p>
+{% endif %}
+

@@ -8,18 +8,19 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$',
-        DetailView.as_view(
-		model=ProductSpec,
+        ListView.as_view(
+                queryset=ProductSpec.objects.order_by('pub_date')[:5],
+                context_object_name='latest_productspec_list',
                 template_name='productspecs/index.html'
         )
 
     ),
-    url(r'^(?P<pk>\d+)/$',
-        DetailView.as_view(
-                model=ProductSpec,
-                template_name='productspecs/detail.html'
-        )
-    ),
+#    url(r'^(?P<pk>\d+)/$',
+#        DetailView.as_view(
+#                model=ProductSpec,
+#                template_name='productspecs/detail.html'
+#        )
+#    ),
 #    url(r'^(?P<pk>\d+)/results/$',
 #        DetailView.as_view(
 #                model=ProductSpec,

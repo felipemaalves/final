@@ -22,6 +22,7 @@ class FPAdmin(admin.ModelAdmin):
 class ProductSpecAdmin(admin.ModelAdmin):
         fieldsets = [
                 (None,                  {'fields':['name']}),
+                ('Date Information', {'fields':['pub_date'], 'classes': ['collapse']}),
         ]
         inlines = [FeatureInline,ProductInline]
         list_display = ('name', 'pub_date', 'was_published_recently')
