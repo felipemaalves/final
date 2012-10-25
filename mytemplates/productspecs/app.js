@@ -2,7 +2,7 @@ Ext.application({
     requires: ['Ext.container.Viewport'],
     name: 'AM',
 
-    appFolder: 'app',
+    appFolder: '/static/productspecs/app',
     controllers:[
         'Specs'
     ],
@@ -10,7 +10,7 @@ Ext.application({
         Ext.create('Ext.container.Viewport', {
             layout: 'fit',
             items: {
-                xtype: 'userlist'
+                xtype: 'speclist'
             }
         });
     }

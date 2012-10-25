@@ -10,7 +10,7 @@ Ext.define('AM.controller.Specs', {
 
     views: [
         'spec.List',
-	'spec.Edit'
+	    'spec.Edit'
     ],
 
     init: function() {
