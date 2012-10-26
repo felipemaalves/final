@@ -2,7 +2,10 @@ Ext.define('AM.view.spec.Edit', {
     extend: 'Ext.window.Window',
     alias: 'widget.specedit',
 
-    title: 'Edit Spec',
+    title: 'Product Spec',
+    width: 500,
+    height: 600,
+
     layout: 'fit',
     autoShow: true,
 

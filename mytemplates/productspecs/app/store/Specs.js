@@ -6,7 +6,7 @@ Ext.define('AM.store.Specs', {
     proxy: {
         type: 'ajax',
 	api: {
-	    read: '/static/productspecs/data/specs.json',
+	    read: '/productspecs/store/',
 	    update:'/static/productspecs/data/updateSpecs.json'
 	},
         reader: {
