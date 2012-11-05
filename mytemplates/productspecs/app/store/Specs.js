@@ -4,11 +4,14 @@ Ext.define('AM.store.Specs', {
     autoLoad: true,
     
     proxy: {
-        type: 'ajax',
-	api: {
+        url: '/productspecs/store',
+        type: 'rest',
+
+
+	/*api: {
 	    read: '/productspecs/store/',
-	    update:'/static/productspecs/data/updateSpecs.json'
-	},
+	    update:'/productspecs/store/(?P<pk>\d+)/'
+	},*/
         reader: {
             type: 'json',
             root: 'specs',

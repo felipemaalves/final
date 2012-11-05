@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic import DetailView, ListView
-from productspecs.models import ProductSpec
+from productspecs.models import ProductSpec, Product
 from productspecs import views
 
 # uncomment the next two lines to enable the admin:
@@ -16,5 +16,7 @@ urlpatterns = patterns('',
         )
 
     ),
-    (r'^store/$', views.store),
+    (r'^store$', views.store),
+    #(r'^product/$', views.product),
+    url(r'^store/(?P<pk>\d+)$', views.storeEdit)
 )

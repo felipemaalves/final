@@ -15,12 +15,13 @@ Ext.define('AM.controller.Specs', {
 
     init: function() {
         this.control({
-            'viewport > speclist': {
-                itemdblclick: this.editSpec
+            'speclist': {
+                editclickgrid: this.editSpec,
+                deletepspec: this.delSpec
             },
-	    'specedit button[action=save]': {
-		click: this.updateSpec
-	    }
+	        'specedit button[action=save]': {
+		        click: this.updateSpec
+	        }
         });
     },
 
@@ -35,8 +36,14 @@ Ext.define('AM.controller.Specs', {
 	this.getSpecsStore().sync();
     },
 
-    editSpec: function(grid, record) {
-	var view = Ext.widget('specedit');
-	view.down('form').loadRecord(record);
+    delSpec: function(rec) {
+        //debugger;
+        this.getSpecsStore().remove(rec);
+        this.getSpecsStore().sync();
+    },
+
+    editSpec: function(rec) {
+    var view = Ext.widget('specedit');
+	view.down('form').loadRecord(rec);
     }
 });

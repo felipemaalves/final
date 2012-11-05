@@ -1,8 +1,12 @@
 Ext.define('AM.view.spec.Edit', {
     extend: 'Ext.window.Window',
     alias: 'widget.specedit',
+    
+    stores: [
+        'Specs',
+    ],
 
-    title: 'Product Spec',
+    title: "Edit Product Spec" , 
     width: 500,
     height: 600,
 
@@ -19,13 +23,49 @@ Ext.define('AM.view.spec.Edit', {
                         name : 'name',
                         fieldLabel: 'Name'
                     },
-/*                   {
-                        xtype: 'textfield',
-                        name : 'email',
-                        fieldLabel: 'Email'
-                    }*/
-                ]
-            }
+                    {                    
+                        title: 'Features',
+                        items: [
+                                {
+                                    xtype:'form',
+                                    renderTo: Ext.getBody(),
+                                    name: 'namess',
+                                    pinned: true,
+                                    items: [
+                                        {
+                                            xtype: 'textfield',
+                                            dataIndex : 'name',
+                                            fieldLabel: 'Name',
+                                        },
+                                        {
+                                            xtype: 'htmleditor',
+                                            enableAlignments:false,
+                                            enableColors:false,
+                                            enableFont:false,
+                                            enableFontSize:false,
+                                            enableFormat:false,
+                                            enableLinks:false,
+                                            enableLists:false,
+                                            enableSourceEdit:false,
+                                            errorMsgCls:false,
+                                            width: 465 ,
+                                            fieldLabel: 'Description',
+                                            name : 'bla',
+                                            autoScroll: true,
+                                            bottom: 100,
+                                            pinned: true,
+                                        },
+                                    ],
+                                },
+                        ],
+                        buttons: [
+                            {
+                                text: 'Add Feature',
+                            },
+                        ],
+                    },
+                ],
+            },
         ];
 
         this.buttons = [
@@ -43,3 +83,4 @@ Ext.define('AM.view.spec.Edit', {
         this.callParent(arguments);
     }
 });
+
