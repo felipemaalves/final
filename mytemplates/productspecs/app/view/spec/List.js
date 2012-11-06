@@ -4,9 +4,19 @@ Ext.define('AM.view.spec.List' ,{
     title: 'All Product Specs',
     store: 'Specs',
     columnLines: true,
-    multiSelect: true,
 
     initComponent: function() {
+        this.toolbar = [
+            {
+                xtype: 'toolbar',
+                items: [
+                    {
+                        text: 'Add Product Spec',
+                        itemId: 'btnAdd'
+                    }
+                ]
+            }
+        ];
         this.columns = [
             {
                 xtype: 'actioncolumn',
@@ -32,7 +42,7 @@ Ext.define('AM.view.spec.List' ,{
                         handler: function(grid, row, col) {
                             var store = grid.getStore();
                             var rec = store.getAt(row);
-                            alert ('botão clicado ' + rec.get('name'));
+                            alert (rec.get('name') + 'Deletado');
                             this.up('speclist').fireEvent('deletepspec', rec);
                         },
                         itemId: 'btnDel'

@@ -40,18 +40,21 @@ def storeEdit(request, pk):
     #data = request.__getattribute__(request.method)
     #data = getattr(request, request.method)
 
-    data = json.loads(request.body)
-
-    prod_spec.name = data.get('name')
-    prod_spec.save()
+    if request.method == 'PUT':
+        data = json.loads(request.body)
+        prod_spec.name = data.get('name')
+        prod_spec.save()
     
-    dc_spec = {
-        'id': prod_spec.id,
-        'name': prod_spec.name
-    }
+        dc_spec = {
+            'id': prod_spec.id,
+            'name': prod_spec.name
+        }
 
-    return HttpResponse(json.dumps(dc_spec))
-    ###statusCode204 --- HttpResponse para Delete, dar uma lida para ver o certo
+        return HttpResponse(json.dumps(dc_spec))
+
+    if request.method == 'DELETE':
+        prod_spec.delete()
+        return HttpResponse('', status=204)
 
 #def product(request):
 
