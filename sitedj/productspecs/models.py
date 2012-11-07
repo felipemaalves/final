@@ -5,6 +5,7 @@ from django.utils import timezone
 class ProductSpec(models.Model):
         name = models.CharField(max_length=200)
         pub_date = models.DateTimeField('date published')
+
         def __unicode__(self):
                 return self.name
         def was_published_recently(self):

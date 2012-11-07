@@ -5,18 +5,21 @@ Ext.define('AM.view.spec.List' ,{
     store: 'Specs',
     columnLines: true,
 
+    tbar: [
+        { 
+            xtype: 'button',
+            scale: 'large',
+            icon: 'http://png-3.findicons.com/files/icons/2222/gloss_basic/32/add.png',
+            iconAlign: 'left',
+            text: 'Add Product Spec',
+            handler: function() {
+                this.up('speclist').fireEvent('addpspec');
+            },
+            itemId: 'btnAdd'
+        }
+    ],
+    
     initComponent: function() {
-        this.toolbar = [
-            {
-                xtype: 'toolbar',
-                items: [
-                    {
-                        text: 'Add Product Spec',
-                        itemId: 'btnAdd'
-                    }
-                ]
-            }
-        ];
         this.columns = [
             {
                 xtype: 'actioncolumn',
@@ -42,7 +45,7 @@ Ext.define('AM.view.spec.List' ,{
                         handler: function(grid, row, col) {
                             var store = grid.getStore();
                             var rec = store.getAt(row);
-                            alert (rec.get('name') + 'Deletado');
+                            alert (rec.get('name') + ' Deletado');
                             this.up('speclist').fireEvent('deletepspec', rec);
                         },
                         itemId: 'btnDel'
@@ -57,5 +60,6 @@ Ext.define('AM.view.spec.List' ,{
         ];
         this.callParent(arguments);
     },
+
 });
 

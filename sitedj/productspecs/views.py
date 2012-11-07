@@ -1,6 +1,7 @@
 # Create your views here.
 
 import json
+import datetime
 from django.template import Context, loader, RequestContext
 from productspecs import models
 from django.http import HttpResponse, Http404, HttpResponseRedirect, HttpRequest
@@ -12,7 +13,6 @@ from productspecs.models import ProductSpec, Product
 def store(request):
 
     latest_productspec_list = ProductSpec.objects.all().order_by('pub_date')
-    latest_product_list = Product.objects.all().order_by('pub_date')
 
     dc_rtn = {
         'success': None,
@@ -28,7 +28,22 @@ def store(request):
         }
         dc_rtn['specs'].append(dc_spec)
 
+### storeAdd ###
+
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        pspec = ProductSpec()
+        pspec.name = data.get('name')
+        pspec.pub_date = datetime.datetime.now()
+        pspec.save()
+        print latest_productspec_list
+
+        return HttpResponse(json.dumps(dc_spec))
+
+###############
+
     return HttpResponse(json.dumps(dc_rtn))
+
 
 def storeEdit(request, pk):
 
@@ -36,15 +51,15 @@ def storeEdit(request, pk):
 #    ipdb.set_trace()
 
     prod_spec = get_object_or_404(ProductSpec, pk=pk)
+    data = json.loads(request.body)
 
     #data = request.__getattribute__(request.method)
     #data = getattr(request, request.method)
 
     if request.method == 'PUT':
-        data = json.loads(request.body)
         prod_spec.name = data.get('name')
         prod_spec.save()
-    
+  
         dc_spec = {
             'id': prod_spec.id,
             'name': prod_spec.name
@@ -55,6 +70,7 @@ def storeEdit(request, pk):
     if request.method == 'DELETE':
         prod_spec.delete()
         return HttpResponse('', status=204)
+
 
 #def product(request):
 

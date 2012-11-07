@@ -14,7 +14,7 @@
                 items: [
                     {
                         xtype: 'textfield',
-                        dataIndex : 'name',
+                        name : 'name',
                         fieldLabel: 'Name',
                     },
                     {
