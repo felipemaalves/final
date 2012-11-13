@@ -17,6 +17,7 @@ urlpatterns = patterns('',
 
     ),
     (r'^store$', views.store),
-    #(r'^product/$', views.product),
+    url(r'^product$', views.product),
+    url(r'^product/(?P<pk>\d+)$', views.productEdit),
     url(r'^store/(?P<pk>\d+)$', views.storeEdit)
 )

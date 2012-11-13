@@ -4,21 +4,23 @@ Ext.application({
 
     appFolder: '/static/productspecs/app',
     controllers:[
-        'Specs'
+        'Specs',
+        'Products'
     ],
     launch: function() {
         Ext.create('Ext.container.Viewport', {
-            layout: 'border',
+            layout: {
+                type: 'table',
+                columns: 3
+            },
+            defaults: {frame:true, width:300, height: 600},
 
-            items: [{
-                region: 'center',
-                xtype: 'speclist',
+            items: [
+                {
+                    xtype: 'speclist',
                 },
                 {
-                region: 'east',
-                xtype: 'speclist',
-                width: 500,
-                collapsible: true,
+                    xtype: 'productlist',
                 },
             ],
         });

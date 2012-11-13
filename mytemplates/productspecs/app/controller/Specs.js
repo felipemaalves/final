@@ -2,15 +2,18 @@ Ext.define('AM.controller.Specs', {
     extend: 'Ext.app.Controller',
 
     stores: [
-	'Specs'
+	    'Specs',
+        'Products'
     ],
     models: [
-        'Spec'
+        'Spec',
+        'Product'
     ],
 
     views: [
         'spec.List',
-	    'spec.Edit'
+	    'spec.Edit',
+        'product.List'
     ],
 
     init: function() {
@@ -32,7 +35,6 @@ Ext.define('AM.controller.Specs', {
             form     = win.down('form'),
             record   = form.getRecord(),
             values   = form.getValues();
-        
         record.set(values);
         win.close();
         if (!record.get('id')) {
