@@ -74,7 +74,6 @@ def productEdit(request, pk):
     
     if request.method == 'PUT':
         prod.name = data.get('name')
-        prod.save()
         prod.price = data.get('price')
         prod.save()
 
@@ -99,39 +98,53 @@ def product(request):
         'success': None,
         'products': []
     }
-    filters = json.loads(request.GET['filter'])
-    filter = filters[0]
-    pk = filter['value']
-    try:
-        prod_spec = get_object_or_404(ProductSpec, pk=pk)
-        prod_id = prod_spec.id
-        latest_product_list = Product.objects.select_related().filter(productspec = prod_id)
+    if request.method == 'GET':
+        filters = json.loads(request.GET['filter'])
+        filter = filters[0]
+        pk = filter['value']
+        try:
+            prod_spec = get_object_or_404(ProductSpec, pk=pk)
+            prod_id = prod_spec.id
+            latest_product_list = Product.objects.select_related().filter(productspec = prod_id)
 
-    except (KeyError, ProductSpec.DoesNotExist):
-        dc_rtn['success'] = False
-        return HttpResponse(json.dumps(dc_rtn))
+        except (KeyError, ProductSpec.DoesNotExist):
+            dc_rtn['success'] = False
+            return HttpResponse(json.dumps(dc_rtn))
 
-    dc_rtn['success'] = True
+        dc_rtn['success'] = True
 
-    for product in latest_product_list:
-        dc_prod = {
-            'id': product.id,
-            'name': product.name,
-            'price': product.price,
-            'productspec': str(product.productspec)
-        }
-        dc_rtn['products'].append(dc_prod)
+        for product in latest_product_list:
+            dc_prod = {
+                'id': product.id,
+                'name': product.name,
+                'price': product.price,
+                'productspec': product.productspec.id
+            }
+            dc_rtn['products'].append(dc_prod)
 
-### storeAdd ###
+### productAdd ###
 
     if request.method == 'POST':
+        #import ipdb
+        #ipdb.set_trace()
         data = json.loads(request.body)
         prod = Product()
+        prod.productspec_id = data.get('productspec')
         prod.name = data.get('name')
-        prod.price = data.get('price')
+        if data.get('price') == '':
+            prod.price = 0
+        else:
+            prod.price = data.get('price')
         prod.save()
 
-        return HttpResponse(json.dumps(dc_spec))
+        dc_prod = {
+            'id': prod.id,
+            'name': prod.name,
+            'price': prod.price,
+            'productspec': prod.productspec.id
+        }
+
+        return HttpResponse(json.dumps(dc_prod))
 
 ###############
 

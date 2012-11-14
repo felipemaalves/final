@@ -1,6 +1,6 @@
 Ext.define('AM.model.Product', {
     extend: 'Ext.data.Model',
-    fields: ['id','name','price'],
+    fields: ['id','name','price','productspec'],
     proxy: {
         url: '/productspecs/product',
         type: 'rest',

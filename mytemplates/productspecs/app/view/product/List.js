@@ -6,6 +6,7 @@ Ext.define('AM.view.product.List' ,{
     columnLines: true,
     hidden: true,
     itemId: 'prodTable',
+    productSpecId: null,
 
     tbar: [
         { 

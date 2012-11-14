@@ -42,6 +42,7 @@ Ext.define('AM.controller.Products', {
         myWindow.setVisible(true);
         pSpecId = record.get('id');
         prodStore.filter("pk", pSpecId);
+        myWindow.productSpecId = pSpecId;
         prodStore.load({
             scope: this, 
             callback: function(record, operation, success){
@@ -58,6 +59,7 @@ Ext.define('AM.controller.Products', {
             record   = form.getRecord(),
             values   = form.getValues();
         record.set(values);
+        record.data.productspec = this.getViewprodlist().productSpecId;
         win.close();
         if (!record.get('id')) {
             store.add(record);
