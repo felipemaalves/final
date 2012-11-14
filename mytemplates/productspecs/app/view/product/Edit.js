@@ -8,7 +8,7 @@ Ext.define('AM.view.product.Edit', {
 
     title: "Edit Product" , 
     width: 500,
-    height: 600,
+    height: 200,
 
     layout: 'fit',
     autoShow: true,
@@ -28,6 +28,10 @@ Ext.define('AM.view.product.Edit', {
                         name: 'price',
                         fieldLabel: 'Price'
                     },
+                    {
+                        xtype: 'hiddenfield',
+                        name: 'productspec'
+                    }
                 ],
             },
         ];

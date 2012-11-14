@@ -59,10 +59,22 @@ Ext.define('AM.controller.Products', {
             record   = form.getRecord(),
             values   = form.getValues();
         record.set(values);
-        record.data.productspec = this.getViewprodlist().productSpecId;
+        if (record.data.price == "") {
+            record.data.price = 0;
+        }
+        if (record.data.name == "") {
+            record.data.name = 'Sem Nome';
+        }
+        debugger;
         win.close();
         if (!record.get('id')) {
             store.add(record);
+            prodStore.load({
+                scope: this,
+                callback: function(record, operation, success){
+                    myWindow.bindStore(prodStore);
+                }
+            });
         }
         store.sync();
     },
@@ -79,6 +91,7 @@ Ext.define('AM.controller.Products', {
 
     addProd: function() {
         var prodModel = Ext.ModelManager.getModel('AM.model.Product').create();
+        prodModel.data.productspec = this.getViewprodlist().productSpecId;
         var view = Ext.widget('prodedit');
         view.down('form').loadRecord(prodModel);
     }

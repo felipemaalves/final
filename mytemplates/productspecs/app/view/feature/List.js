@@ -1,7 +1,7 @@
-/*Ext.define('AM.view.feature.List' ,{
+Ext.define('AM.view.feature.List' ,{
     extend: 'Ext.panel.Panel',
     alias: 'widget.featurelist',
-    store: 'Specs',
+    store: 'Features',
 
     initComponent: function()
     {
@@ -14,7 +14,7 @@
                 items: [
                     {
                         xtype: 'textfield',
-                        name : 'name',
+                        //name : 'feature',
                         fieldLabel: 'Name',
                     },
                     {
@@ -30,7 +30,7 @@
                         errorMsgCls:false,
                         width: 465 ,
                         fieldLabel: 'Description',
-                        name : 'name',
+                        //name : 'description',
                         autoScroll: true,
                         bottom: 100,
                         pinned: true,
@@ -39,4 +39,4 @@
             },
         ],
     },
-});*/
+});

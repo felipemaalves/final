@@ -73,8 +73,14 @@ def productEdit(request, pk):
     data = json.loads(request.body)
     
     if request.method == 'PUT':
-        prod.name = data.get('name')
-        prod.price = data.get('price')
+        if data.get('name') == '':
+            prod.name = 'Sem Nome'
+        else:
+            prod.name = data.get('name')
+        if data.get('price') == '':
+            prod.price = 0
+        else:
+            prod.price = data.get('price')
         prod.save()
 
         dc_prod = {
@@ -130,7 +136,10 @@ def product(request):
         data = json.loads(request.body)
         prod = Product()
         prod.productspec_id = data.get('productspec')
-        prod.name = data.get('name')
+        if data.get('name') == '':
+            prod.name = 'Sem Nome'
+        else:
+            prod.name = data.get('name')
         if data.get('price') == '':
             prod.price = 0
         else:
