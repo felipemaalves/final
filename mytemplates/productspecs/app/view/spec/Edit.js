@@ -7,13 +7,16 @@ Ext.define('AM.view.spec.Edit', {
     ],
 
     title: "Edit Product Spec" , 
-    width: 500,
-    height: 600,
+    width: 320,
+    height: 450,
+    autoscroll: true,
 
     layout: 'fit',
     autoShow: true,
+//    resizable: false,
 
     initComponent: function() {
+        foo = this;
         this.items = [
             {
                 xtype: 'form',
@@ -23,47 +26,24 @@ Ext.define('AM.view.spec.Edit', {
                         name : 'name',
                         fieldLabel: 'Name'
                     },
-                    {                    
+                    {
                         title: 'Features',
-                        items: [
-                                {
-                                    xtype:'form',
-                                    renderTo: Ext.getBody(),
-                                    name: 'namess',
-                                    pinned: true,
-                                    items: [
-                                        {
-                                            xtype: 'textfield',
-                                            dataIndex : 'name',
-                                            fieldLabel: 'Name',
-                                        },
-                                        {
-                                            xtype: 'htmleditor',
-                                            enableAlignments:false,
-                                            enableColors:false,
-                                            enableFont:false,
-                                            enableFontSize:false,
-                                            enableFormat:false,
-                                            enableLinks:false,
-                                            enableLists:false,
-                                            enableSourceEdit:false,
-                                            errorMsgCls:false,
-                                            width: 465 ,
-                                            fieldLabel: 'Description',
-                                            name : 'bla',
-                                            autoScroll: true,
-                                            bottom: 100,
-                                            pinned: true,
-                                        },
-                                    ],
-                                },
-                        ],
-                        buttons: [
-                            {
-                                text: 'Add Feature',
-                            },
-                        ],
+                        xtype: 'fieldset',
+                        layout: 'table',
+                        defaults: {width:280 , height:95 },
+                        items :[{
+                            xtype: 'featedit'
+                        }]
                     },
+                ],
+                bbar: [
+                    {
+                            text: 'Add Feature',
+                            xtype: 'button',
+                            action: 'add',
+                            flex: 1,
+                            textAlign: 'center'
+                        }
                 ],
             },
         ];

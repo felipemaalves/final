@@ -159,4 +159,34 @@ def product(request):
 
     return HttpResponse(json.dumps(dc_rtn))
 
+def feature(request):
 
+    dc_rtn = {
+        'success': None,
+        'products': []
+    }
+    if request.method == 'GET':
+        filters = json.loads(request.GET['filter'])
+        filter = filters[0]
+        pk = filter['value']
+        try:
+            prod_spec = get_object_or_404(ProductSpec, pk=pk)
+            prod_id = prod_spec.id
+            latest_product_list = Feature.objects.select_related().filter(productspec = prod_id)
+
+        except (KeyError, ProductSpec.DoesNotExist):
+            dc_rtn['success'] = False
+            return HttpResponse(json.dumps(dc_rtn))
+
+        dc_rtn['success'] = True
+
+        for feature in latest_feature_list:
+            dc_prod = {
+                'id': feature.id,
+                'feature': feature.name,
+                'description': feature.description,
+                'productspec': feature.productspec.id
+            }
+            dc_rtn['products'].append(dc_prod)
+
+    return HttpResponse(json.dumps(dc_rtn))

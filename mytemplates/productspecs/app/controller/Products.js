@@ -65,17 +65,11 @@ Ext.define('AM.controller.Products', {
         if (record.data.name == "") {
             record.data.name = 'Sem Nome';
         }
-        debugger;
-        win.close();
         if (!record.get('id')) {
             store.add(record);
-            prodStore.load({
-                scope: this,
-                callback: function(record, operation, success){
-                    myWindow.bindStore(prodStore);
-                }
-            });
+            myWindow.setVisible(false);
         }
+        win.close();
         store.sync();
     },
 

@@ -1,29 +1,24 @@
-/*{
-    title: 'Features',
-    initComponent: function(){
-        this.items = [
-            {
-                xtypes:'form',
-                items: [
+Ext.define('AM.view.feature.Edit' ,{
+    extend: 'Ext.panel.Panel',
+    alias: 'widget.featedit',
+    //store: 'Features',
+    itemId: 'featTable',
+    productSpecId: null,
+
+    items : [
                     {
                         xtype: 'textfield',
-                        name : 'name',
+                        name : 'feature',
                         fieldLabel: 'Name',
                     },
                     {
-                        xtype: 'textfield',
-                        width: 450,
+                        xtype: 'textarea',
                         fieldLabel: 'Description',
-                        name : 'name',
-                     },
-             ],},
-        ],
-
-        this.buttons = [
-            {
-                text: 'Add Feature',
-            },
-        ];
-        this.callParent(arguments);
-    },
-}*/
+                        name : 'description'
+                    },
+                    {
+                        xtype: 'hiddenfield',
+                        name: 'productspec'
+                    }
+        ]
+});

@@ -3,17 +3,19 @@ Ext.define('AM.controller.Specs', {
 
     stores: [
 	    'Specs',
-        'Products'
+        'Products',
+        'Features'
     ],
     models: [
         'Spec',
-        'Product'
+        'Product',
+        'Feature'
     ],
 
     views: [
         'spec.List',
 	    'spec.Edit',
-        'product.List'
+        'feature.Edit'
     ],
 
     init: function() {
@@ -25,7 +27,10 @@ Ext.define('AM.controller.Specs', {
             },
 	        'specedit button[action=save]': {
 		        click: this.updateSpec
-	        }
+	        },
+            'specedit button[action=add]': {
+                click: this.addFeat
+            }
         });
     },
 
@@ -48,14 +53,31 @@ Ext.define('AM.controller.Specs', {
         this.getSpecsStore().sync();
     },
 
-    editSpec: function(rec) {
-    var view = Ext.widget('specedit');
-	view.down('form').loadRecord(rec);
+    editSpec: function(record) {
+        featStore = Ext.create('AM.store.Features');
+        pSpecId = record.get('id');
+        featStore.filter("pk", pSpecId);        
+        featStore.load({
+            scope: this,
+            callback: function(record, operation, success){
+                myWindow.bindStore(prodStore);
+            }
+        });
+        debugger;
+        view = Ext.widget('specedit');
+        view.down('form').loadRecord(record);
     },
 
     addSpec: function() {
         var specModel = Ext.ModelManager.getModel('AM.model.Spec').create();
-        var view = Ext.widget('specedit');
+        view = Ext.widget('specedit');
         view.down('form').loadRecord(specModel);
-    }
+    },
+
+    addFeat: function(record) {
+        
+        var featView = Ext.create('AM.view.feature.Edit');
+        view.down('fieldset').add(featView);
+    },
+    
 });

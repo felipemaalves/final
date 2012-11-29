@@ -3,5 +3,5 @@ Ext.define('AM.store.Features', {
     model: 'AM.model.Feature',
     // autoLoad: false,
     // autoSync: false,
-    //remoteFilter: true
+    remoteFilter: true
 });

@@ -7,8 +7,6 @@ Ext.define('AM.view.product.Edit', {
     ],
 
     title: "Edit Product" , 
-    width: 500,
-    height: 200,
 
     layout: 'fit',
     autoShow: true,

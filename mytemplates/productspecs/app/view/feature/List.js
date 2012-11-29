@@ -1,12 +1,13 @@
-Ext.define('AM.view.feature.List' ,{
+/*Ext.define('AM.view.feature.List' ,{
     extend: 'Ext.panel.Panel',
-    alias: 'widget.featurelist',
+    alias: 'widget.featlist',
     store: 'Features',
+    itemId: 'featTable',
+    productSpecId: null,
 
     initComponent: function()
     {
-        title: 'Features',
-        items: [
+        this.items = [
             {
                 xtype:'form',
                 renderTo: Ext.getBody(),
@@ -14,7 +15,7 @@ Ext.define('AM.view.feature.List' ,{
                 items: [
                     {
                         xtype: 'textfield',
-                        //name : 'feature',
+                        name : 'feature',
                         fieldLabel: 'Name',
                     },
                     {
@@ -30,13 +31,13 @@ Ext.define('AM.view.feature.List' ,{
                         errorMsgCls:false,
                         width: 465 ,
                         fieldLabel: 'Description',
-                        //name : 'description',
+                        name : 'description',
                         autoScroll: true,
                         bottom: 100,
                         pinned: true,
                     },
-                ],
-            },
-        ],
+                ]
+            }
+        ]
     },
-});
+});*/
