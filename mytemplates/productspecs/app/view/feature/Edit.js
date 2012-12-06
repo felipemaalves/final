@@ -1,8 +1,7 @@
 Ext.define('AM.view.feature.Edit' ,{
     extend: 'Ext.panel.Panel',
     alias: 'widget.featedit',
-    //store: 'Features',
-    itemId: 'featTable',
+    store: 'Features',
     productSpecId: null,
 
     items : [

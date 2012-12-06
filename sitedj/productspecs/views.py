@@ -8,7 +8,7 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect, HttpRequest
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.urlresolvers import reverse
 import urls
-from productspecs.models import ProductSpec, Product
+from productspecs.models import ProductSpec, Product, Feature
 
 def store(request):
 
@@ -36,6 +36,10 @@ def store(request):
         pspec.name = data.get('name')
         pspec.pub_date = datetime.datetime.now()
         pspec.save()
+        dc_spec = {
+            'id': pspec.id,
+            'name': pspec.name
+        }
 
         return HttpResponse(json.dumps(dc_spec))
 
@@ -163,7 +167,7 @@ def feature(request):
 
     dc_rtn = {
         'success': None,
-        'products': []
+        'features': []
     }
     if request.method == 'GET':
         filters = json.loads(request.GET['filter'])
@@ -172,7 +176,7 @@ def feature(request):
         try:
             prod_spec = get_object_or_404(ProductSpec, pk=pk)
             prod_id = prod_spec.id
-            latest_product_list = Feature.objects.select_related().filter(productspec = prod_id)
+            latest_feature_list = Feature.objects.select_related().filter(productspec = prod_id)
 
         except (KeyError, ProductSpec.DoesNotExist):
             dc_rtn['success'] = False
@@ -187,6 +191,27 @@ def feature(request):
                 'description': feature.description,
                 'productspec': feature.productspec.id
             }
-            dc_rtn['products'].append(dc_prod)
+            dc_rtn['features'].append(dc_prod)
+
+### featureAdd ###
+    if request.method == 'POST':
+        #import ipdb
+        #ipdb.set_trace()
+        data = json.loads(request.body)
+        feat = Feature()
+        feat.productspec_id = data.get('productspec')
+        feat.name = data.get('feature')
+        feat.description = data.get('description')
+        feat.save()
+
+        dc_feat = {
+            'id': feat.id,
+            'name': feat.name,
+            'description': feat.description,
+            'productspec': feat.productspec.id
+        }
+
+        return HttpResponse(json.dumps(dc_feat))
+###############
 
     return HttpResponse(json.dumps(dc_rtn))

@@ -40,6 +40,8 @@ Ext.define('AM.controller.Products', {
         myWindow = this.getViewprodlist(),
             prodStore = Ext.create('AM.store.Products');
         myWindow.setVisible(true);
+        gRecord = record;
+        gGrid = grid;
         pSpecId = record.get('id');
         prodStore.filter("pk", pSpecId);
         myWindow.productSpecId = pSpecId;
@@ -51,7 +53,20 @@ Ext.define('AM.controller.Products', {
         });
     },
 
-
+    refresh: function(grid, record){
+        myWindow = this.getViewprodlist(),
+            prodStore = Ext.create('AM.store.Products');
+        myWindow.setVisible(true);
+        prodStore.filter("pk", pSpecId);
+        myWindow.productSpecId = pSpecId;
+        prodStore.load({
+            scope: this,
+            callback: function(record, operation, success){
+                myWindow.bindStore(prodStore);
+            }
+        });
+    },
+        
     updateProd: function(button) {
 	var win      = button.up('window'),
             form     = win.down('form'),

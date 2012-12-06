@@ -29,11 +29,10 @@ Ext.define('AM.view.spec.Edit', {
                     {
                         title: 'Features',
                         xtype: 'fieldset',
-                        layout: 'table',
+                        layout: 'anchor',
                         defaults: {width:280 , height:95 },
-                        items :[{
-                            xtype: 'featedit'
-                        }]
+                        isScrollable: true,
+                        hidden: false
                     },
                 ],
                 bbar: [
@@ -42,8 +41,9 @@ Ext.define('AM.view.spec.Edit', {
                             xtype: 'button',
                             action: 'add',
                             flex: 1,
-                            textAlign: 'center'
-                        }
+                            textAlign: 'center',
+                            hidden: false
+                    }
                 ],
             },
         ];
