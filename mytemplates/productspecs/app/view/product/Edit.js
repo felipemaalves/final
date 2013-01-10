@@ -4,17 +4,26 @@ Ext.define('AM.view.product.Edit', {
     
     stores: [
         'Products',
+        'FeatureValues'
     ],
 
     title: "Edit Product" , 
+    width: 320,
+    height: 450,
+    autoscroll: true,
 
     layout: 'fit',
     autoShow: true,
+    resizable: true,
 
     initComponent: function() {
         this.items = [
             {
                 xtype: 'form',
+                layout: {
+                    type: 'vbox',
+                    align: 'stretch'
+                },
                 items: [
                     {
                         xtype: 'textfield',
@@ -29,6 +38,13 @@ Ext.define('AM.view.product.Edit', {
                     {
                         xtype: 'hiddenfield',
                         name: 'productspec'
+                    },
+                    {
+                        title: 'Feature Values',
+                        xtype: 'fieldset',
+                        flex: 1,
+                        autoScroll: true,
+                        hidden: false
                     }
                 ],
             },

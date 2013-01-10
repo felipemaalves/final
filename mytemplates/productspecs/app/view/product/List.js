@@ -35,8 +35,8 @@ Ext.define('AM.view.product.List' ,{
                         tooltip: 'Edit Product',
                         handler: function(grid, row, col) {
                             var store = grid.getStore();
-                            var rec = store.getAt(row);
-                            this.up('productlist').fireEvent('editproduct', rec);
+                            var record = store.getAt(row);
+                            this.up('productlist').fireEvent('editproduct', record);
                         },
                         itemId: 'btnEditP'
                     },
