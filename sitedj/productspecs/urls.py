@@ -20,5 +20,8 @@ urlpatterns = patterns('',
     url(r'^product$', views.product),
     url(r'^feature$', views.feature),
     url(r'^product/(?P<pk>\d+)$', views.productEdit),
-    url(r'^store/(?P<pk>\d+)$', views.storeEdit)
+    url(r'^store/(?P<pk>\d+)$', views.storeEdit),
+    url(r'^featvalue$',views.featValue),
+    url(r'^feature/(?P<pk>\d+)$', views.featureEdit),
+    url(r'^featvalue/(?P<pk>\d+)$',views.featValEdit)
 )

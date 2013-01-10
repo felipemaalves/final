@@ -8,7 +8,7 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect, HttpRequest
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.urlresolvers import reverse
 import urls
-from productspecs.models import ProductSpec, Product, Feature
+from productspecs.models import ProductSpec, Product, Feature, FeatureValue
 
 def store(request):
 
@@ -90,7 +90,8 @@ def productEdit(request, pk):
         dc_prod = {
             'id': prod.id,
             'name': prod.name,
-            'price': prod.price
+            'price': prod.price,
+            'productspec': prod.productspec.id
         }
 
         return HttpResponse(json.dumps(dc_prod))
@@ -195,8 +196,6 @@ def feature(request):
 
 ### featureAdd ###
     if request.method == 'POST':
-        #import ipdb
-        #ipdb.set_trace()
         data = json.loads(request.body)
         feat = Feature()
         feat.productspec_id = data.get('productspec')
@@ -215,3 +214,105 @@ def feature(request):
 ###############
 
     return HttpResponse(json.dumps(dc_rtn))
+
+def featValue(request):
+
+    dc_rtn = {
+        'success': None,
+        'featvalues': []
+    }
+    if request.method == 'GET':
+        filters = json.loads(request.GET['filter'])
+        filter = filters[0]
+        pk = filter['value']
+        try:
+            prod = get_object_or_404(Product, pk=pk)
+            prod_id = prod.id
+            latest_value_list = FeatureValue.objects.select_related().filter(product = prod_id)
+
+        except (KeyError, Product.DoesNotExist):
+            dc_rtn['success'] = False
+            return HttpResponse(json.dumps(dc_rtn))
+
+        dc_rtn['success'] = True
+
+        for fvalue in latest_value_list:
+            dc_val = {
+                'id': fvalue.id,
+                'feature': fvalue.feature.name,
+                'feature_id':fvalue.feature.id,
+                'product': fvalue.product.id,
+                'value': fvalue.value
+            }
+            dc_rtn['featvalues'].append(dc_val)
+
+### featValueAdd ###
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        val = FeatureValue()
+        val.value = data.get('value')
+        val.product_id = data.get('product')
+        val.feature_id = data.get('feature_id')
+        val.feature_name = data.get('feature')
+        val.save()
+
+        dc_val = {
+            'id': val.id,
+            'feature': val.feature.name,
+            'feature_id':val.feature.id,
+            'product': val.product.id,
+            'value': val.value
+        }
+
+        return HttpResponse(json.dumps(dc_val))
+###############
+
+    return HttpResponse(json.dumps(dc_rtn))
+
+def featureEdit(request, pk):
+
+    feat = get_object_or_404(Feature, pk=pk)
+    data = json.loads(request.body)
+
+    if request.method == 'PUT':
+        feat.name = data.get('feature')
+        feat.description = data.get('description')
+        feat.save()
+
+        dc_feat = {
+            'id': feat.id,
+            'feature': feat.name,
+            'description': feat.price,
+            'productspec': feat.productspec.id
+        }
+
+        return HttpResponse(json.dumps(dc_feat))
+
+    if request.method == 'DELETE':
+        feat.delete()
+        return HttpResponse('', status=204)
+
+def featValEdit(request, pk):
+
+    fval = get_object_or_404(FeatureValue, pk=pk)
+    data = json.loads(request.body)
+
+    if request.method == 'PUT':
+        fval.value = data.get('value')
+        fval.save()
+
+        dc_fval = {
+            'id': fval.id,
+            'value': fval.value,
+            'feature': fval.feature.name,
+            'feature_id': fval.feature.id,
+            'product': fval.product.id
+        }
+
+        return HttpResponse(json.dumps(dcfval))
+
+    if request.method == 'DELETE':
+        fval.delete()
+        return HttpResponse('', status=204)
+
+

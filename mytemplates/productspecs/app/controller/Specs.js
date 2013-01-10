@@ -18,10 +18,6 @@ Ext.define('AM.controller.Specs', {
         'feature.Edit'
     ],
 
-    /*refs: [
-        {ref: 'viewfeatedit', selector: '#featTable'}            
-    ],*/
-
     init: function() {
         this.control({
             'speclist': {
@@ -41,6 +37,7 @@ Ext.define('AM.controller.Specs', {
     updateSpec: function(button) {
 	var win      = button.up('window'),
             store    = this.getSpecsStore(),
+            vStore = this.getFeaturesStore("pk", pSpecId),
             form     = win.down('form'),
             record   = form.getRecord(),
             values   = form.getValues();
@@ -51,20 +48,40 @@ Ext.define('AM.controller.Specs', {
             store.add(record);
         }
         else {
-            for(var i = 0, max = record.data.productspec.length; i < max; i ++) {
-                if (i >= featCount) {
-                    featCount += 1;
-                    featModel = Ext.ModelManager.getModel('AM.model.Feature').create();
-                    featModel.data.description = record.data.description[i];
-                    featModel.data.feature = record.data.feature[i];
-                    featModel.data.productspec = record.get('id');
-                    featStore.add(featModel)
+            max = record.data.productspec.length;
+            if(max==0){max++;}
+            for(var i = 0,c = 0; i < max; i ++) {
+                featModel = Ext.ModelManager.getModel('AM.model.Feature').create();
+                featModel.data.productspec = record.get('id');
+                if (max == 1) {
+                    featModel.data.description = record.get('description');
+                    featModel.data.feature = record.get('feature');
                 }
                 else {
-                    record.data.productspec[i] = record.get('id');
+                    featModel.data.description = record.data.description[i];
+                    featModel.data.feature = record.data.feature[i];
+                }
+                if (i >= featCount) {
+                    featCount += 1;
+                    featStore.add(featModel);
+                }
+                else {
+                    var rec = featStore.data.items[c];
+                    if (
+                        !(
+                            rec.get('description') == featModel.get('description') &&
+                            rec.get('feature') == featModel.get('feature')
+                        )
+                    ){
+                        featStore.remove(rec);
+                        featStore.add(featModel);
+                    }
+                    else {
+                        c++;
+                    }
                 }
             }
-            featStore.sync();
+            featStore.sync();            
         }
         store.sync();
     },

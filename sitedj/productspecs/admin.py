@@ -1,9 +1,10 @@
 from productspecs.models import ProductSpec, Feature, Product, FeatureValue
 from django.contrib import admin
 
+
 class FeatureValueInInline(admin.TabularInline):
-	model = FeatureValue
-	extra = 3
+    model = FeatureValue
+    extra = 3
 
 class ProductInline(admin.TabularInline):
 	model = Product
@@ -14,10 +15,11 @@ class FeatureInline(admin.TabularInline):
 	extra = 1
 
 class FPAdmin(admin.ModelAdmin):
-	fieldsets = [
-		('Product',	{'fields':['name']}),
-	]
-	inlines = [FeatureValueInInline]
+    fieldsets = [
+        ('Product',	{'fields':['name','productspec']}),
+    ]
+    inlines = [FeatureValueInInline]
+    readonly_fields = ['productspec']
 
 class ProductSpecAdmin(admin.ModelAdmin):
         fieldsets = [

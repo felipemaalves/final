@@ -16,10 +16,13 @@ Ext.define('AM.view.spec.Edit', {
 //    resizable: false,
 
     initComponent: function() {
-        foo = this;
         this.items = [
             {
                 xtype: 'form',
+                layout: {
+                    type: 'vbox',
+                    align: 'stretch'
+                },
                 items: [
                     {
                         xtype: 'textfield',
@@ -29,9 +32,9 @@ Ext.define('AM.view.spec.Edit', {
                     {
                         title: 'Features',
                         xtype: 'fieldset',
-                        layout: 'anchor',
                         defaults: {width:280 , height:95 },
-                        isScrollable: true,
+                        flex: 1,
+                        autoScroll: true,
                         hidden: false
                     },
                 ],
