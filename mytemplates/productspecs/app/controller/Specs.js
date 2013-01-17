@@ -37,18 +37,19 @@ Ext.define('AM.controller.Specs', {
     updateSpec: function(button) {
 	var win      = button.up('window'),
             store    = this.getSpecsStore(),
-            vStore = this.getFeaturesStore("pk", pSpecId),
             form     = win.down('form'),
             record   = form.getRecord(),
             values   = form.getValues();
-        debugger;
         record.set(values);
         win.close();
         if (!record.get('id')) {
             store.add(record);
         }
         else {
-            max = record.data.productspec.length;
+            max = 0;
+            if(record.data.productspec != undefined){
+                max = record.data.productspec.length;
+            }
             if(max==0){max++;}
             for(var i = 0,c = 0; i < max; i ++) {
                 featModel = Ext.ModelManager.getModel('AM.model.Feature').create();
@@ -93,18 +94,44 @@ Ext.define('AM.controller.Specs', {
 
     editSpec: function(record) {
         myWindow = Ext.widget('featedit');
-            featStore = Ext.create('AM.store.Features');
+        featStore = Ext.create('AM.store.Features');
         pSpecId = record.get('id');
+        if (pSpecId == '') {
+            var specStore = this.getSpecsStore();
+            var specLast = specStore.data.length -2;
+            if (specLast+2 <= 1){specLast++}
+            var penultId = specStore.data.items[specLast].get('id');
+            var c = 1;
+            debugger;
+            if (penultId == ""){
+                var i = specLast;
+                while (penultId == ""){
+                    if (specStore.data.items[i].get('id') != undefined){
+                        i--;
+                        penultId = specStore.data.items[i].get('id');
+                        c++;
+                    }
+                    else {
+                        debugger;
+                    }
+                }
+            }
+            specStore.data.items[specLast].data.id = penultId+c;
+            pSpecId = specStore.data.items[specLast].get('id');
+            specStore.sync();
+        }
         featStore.filter("pk", pSpecId);
         myWindow.productSpecId = pSpecId;
         featCount = 0;
         featStore.load({
             scope: this,
             callback: function(record, operation, success){
-                for(var i = 0, max = record.length; i < max; i ++){
-                    var v = record[i];
-                    this.addFeat(v);
-                    featCount += 1;
+                if (record != undefined ) {
+                    for(var i = 0, max = record.length; i < max; i ++){
+                        var v = record[i];
+                        this.addFeat(v);
+                        featCount += 1;
+                    }
                 }
                 myWindow.bindStore(featStore);
             }
@@ -114,12 +141,13 @@ Ext.define('AM.controller.Specs', {
     },
 
     addSpec: function() {
+
         var specModel = Ext.ModelManager.getModel('AM.model.Spec').create();
         view = Ext.widget('specedit');
         view.setHeight(125);
         view.down('form').loadRecord(specModel);
         view.down('fieldset').setVisible(false);
-        view.down('bbar').setVisible(false);
+        view.down('button').setVisible(false);
     },
 
     addFeat: function(record) {
@@ -134,5 +162,4 @@ Ext.define('AM.controller.Specs', {
         var featView = Ext.create('AM.view.feature.Edit');
         view.down('fieldset').add(featView);
     }
-    
 });
